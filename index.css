@@ -2165,6 +2165,31 @@ body:hover .cursor-glow { opacity: 1; }
   transition: border-color 0.3s;
 }
 
+.footer__insta-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: var(--gold);
+  text-decoration: none;
+}
+.footer__insta-btn i {
+  width: 24px;
+  height: 24px;
+}
+.footer__insta-btn:hover {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  border-color: transparent;
+  color: #fff;
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 10px 20px rgba(220, 39, 67, 0.4);
+}
+
 .newsletter-form input:focus { border-color: var(--gold); }
 .newsletter-form input::placeholder { color: var(--text-muted); }
 
