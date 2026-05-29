@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WF IMPORTS | Smartwatches & Acessórios Premium</title>
+  <meta name="description" content="WF Imports — Smartwatches premium, acessórios exclusivos e tecnologia de ponta. Design sofisticado que impressiona.">
+  <meta name="keywords" content="smartwatch, WF Imports, relógio inteligente, acessórios, premium, bento, loja">
+  <meta name="author" content="WF Imports">
+  <meta property="og:title" content="WF IMPORTS | Smartwatches & Acessórios Premium">
+  <meta property="og:description" content="Descubra a nova geração de smartwatches. Estilo, tecnologia e sofisticação.">
+  <meta property="og:type" content="website">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' fill='%23d4af37'%3EW%3C/text%3E%3C/svg%3E">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Cursor Glow Effect -->
+  <div class="cursor-glow" id="cursor-glow"></div>
+
+  <!-- Navigation -->
+  <header class="nav" id="navbar">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo" id="logo">
+        <div class="logo-mark">
+          <span class="logo-w">W</span><span class="logo-f">F</span>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">IMPORTS</span>
+          <span class="logo-sub">SMARTWATCHE & ACESSÓRIOS</span>
+        </div>
+      </a>
+      
+      <nav class="nav__links" id="nav-menu">
+        <a href="#hero" class="nav__link active" data-sec="hero">Início</a>
+        <a href="#showcase" class="nav__link" data-sec="showcase">Coleção</a>
+        <a href="#features" class="nav__link" data-sec="features">Tecnologia</a>
+        <a href="#simulator" class="nav__link" data-sec="simulator">Simulador</a>
+        <a href="#store" class="nav__link" data-sec="store">Loja</a>
+      </nav>
+
+      <div class="nav__actions">
+        <button class="nav__cart-btn" id="open-cart-btn" aria-label="Abrir Carrinho">
+          <i data-lucide="shopping-bag"></i>
+          <span class="cart-badge" id="cart-badge-count">0</span>
+        </button>
+        <button class="nav__menu-btn" id="mobile-toggle" aria-label="Menu">
+          <i data-lucide="menu" id="menu-icon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-drawer" id="mobile-menu">
+    <div class="mobile-drawer__header">
+      <div class="logo-mark" style="transform:scale(0.8)">
+        <span class="logo-w">W</span><span class="logo-f">F</span>
+      </div>
+      <button class="mobile-drawer__close" id="mobile-close" aria-label="Fechar">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <nav class="mobile-drawer__nav">
+      <a href="#hero" class="mobile-drawer__link" data-target="hero">Início</a>
+      <a href="#showcase" class="mobile-drawer__link" data-target="showcase">Coleção</a>
+      <a href="#features" class="mobile-drawer__link" data-target="features">Tecnologia</a>
+      <a href="#simulator" class="mobile-drawer__link" data-target="simulator">Simulador</a>
+      <a href="#store" class="mobile-drawer__link" data-target="store">Loja</a>
+    </nav>
+  </div>
+
+  <!-- ===== CINEMATIC HERO SECTION ===== -->
+  <section class="hero" id="hero">
+    <!-- Golden Particles Canvas -->
+    <canvas id="hero-particles-canvas" class="hero__particles-canvas"></canvas>
+
+    <!-- Cinematic Background -->
+    <div class="hero__cinema-bg">
+      <div class="hero__light-ray hero__light-ray--1"></div>
+      <div class="hero__light-ray hero__light-ray--2"></div>
+      <div class="hero__light-ray hero__light-ray--3"></div>
+      <div class="hero__ambient-glow"></div>
+    </div>
+
+    <!-- Floating Watches Composition -->
+    <div class="hero__watches-stage" id="hero-watches-stage">
+      <div class="hero__watch-wrapper" id="hero-watch-wrapper">
+        <div class="hero__watch-reflection"></div>
+        <div class="hero__watch-composition">
+          <!-- Relógio de trás escurecido para contraste/profundidade -->
+          <img src="ws79_ultra2.png" alt="WF Premium Smartwatch Back" class="hero__comp-img hero__comp-img--back">
+          <!-- Relógio da frente brilhante/destaque -->
+          <img src="ws79_ultra2.png" alt="WF Premium Smartwatch Front" class="hero__comp-img hero__comp-img--front">
+        </div>
+      </div>
+    </div>
+
+    <!-- Gold Ring Accent -->
+    <div class="hero__gold-ring" id="hero-gold-ring"></div>
+
+    <!-- Text Content -->
+    <div class="hero__cinema-content" id="hero-cinema-content">
+      <div class="hero__cinema-badge" id="hero-cinema-badge">
+        <i data-lucide="sparkles"></i>
+        <span>Nova Coleção 2026</span>
+      </div>
+      <h1 class="hero__cinema-title" id="hero-cinema-title">
+        <span class="hero__cinema-title-line" id="hero-title-line1">Tecnologia que</span>
+        <span class="hero__cinema-title-line hero__cinema-title-gold" id="hero-title-line2">você veste.</span>
+      </h1>
+      <p class="hero__cinema-desc" id="hero-cinema-desc">
+        Smartwatches premium com design sofisticado e funcionalidades que transformam seu dia a dia.
+      </p>
+      <div class="hero__cinema-actions" id="hero-cinema-actions">
+        <a href="#showcase" class="btn btn--gold btn--cinema">
+          <span>Ver Coleção</span>
+          <i data-lucide="arrow-right"></i>
+        </a>
+        <a href="#store" class="btn btn--outline btn--cinema">
+          <span>Explorar Loja</span>
+        </a>
+      </div>
+      <div class="hero__cinema-stats" id="hero-cinema-stats">
+        <div class="hero__stat">
+          <span class="hero__stat-num">12</span>
+          <span class="hero__stat-label">Modelos</span>
+        </div>
+        <div class="hero__stat-divider"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">3</span>
+          <span class="hero__stat-label">Pulseiras</span>
+        </div>
+        <div class="hero__stat-divider"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">∞</span>
+          <span class="hero__stat-label">Combinações</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Hint -->
+    <div class="hero__scroll-hint" id="hero-scroll-hint">
+      <div class="scroll-mouse">
+        <div class="scroll-mouse__wheel"></div>
+      </div>
+      <span>Role para explorar</span>
+    </div>
+  </section>
+
+  <!-- ===== HORIZONTAL SHOWCASE ===== -->
+  <section class="showcase" id="showcase">
+    <div class="showcase__header">
+      <span class="section-tag">COLEÇÃO EXCLUSIVA</span>
+      <h2 class="section-title">Nossos <span class="gold-text">Modelos</span></h2>
+      <p class="showcase__scroll-hint"><i data-lucide="mouse"></i> Role para explorar</p>
+    </div>
+
+    <div class="showcase__outer" id="showcase-outer">
+      <div class="showcase__track" id="showcase-track">
+
+        <!-- Panel 1: WS79 Ultra 2 -->
+        <div class="showcase__panel" data-product-id="ws79-ultra2" id="panel-ws79">
+          <div class="showcase__panel-bg" style="background: radial-gradient(ellipse at 70% 50%, rgba(212,175,55,0.12) 0%, transparent 65%);"></div>
+          <div class="showcase__panel-number">01</div>
+          <div class="showcase__panel-watermark">WS79</div>
+          <div class="showcase__panel-content">
+            <div class="showcase__panel-info">
+              <span class="showcase__panel-tag">Destaque Imperial</span>
+              <h3 class="showcase__panel-name">WS 79<br>ULTRA 2</h3>
+              <p class="showcase__panel-sub">49mm • Tela 2.2" • 3 Pulseiras Incluídas</p>
+              <ul class="showcase__panel-features">
+                <li><i data-lucide="phone-call"></i> Faz e recebe ligações</li>
+                <li><i data-lucide="heart-pulse"></i> Monitor cardíaco & SpO2</li>
+                <li><i data-lucide="shield"></i> Resistente à água IP68</li>
+                <li><i data-lucide="zap"></i> Assistente de voz</li>
+              </ul>
+              <div class="showcase__panel-price">R$ <span>100</span><small>,00</small></div>
+              <div class="showcase__panel-actions">
+                <button class="btn btn--gold showcase__panel-btn" data-product="ws79-ultra2">
+                  <i data-lucide="shopping-bag"></i> Comprar Agora
+                </button>
+                <button class="showcase__panel-detail" data-product="ws79-ultra2">
+                  <i data-lucide="eye"></i> Ver Detalhes
+                </button>
+              </div>
+            </div>
+            <div class="showcase__panel-visual">
+              <div class="showcase__panel-glow" style="background: radial-gradient(circle, rgba(212,175,55,0.2) 0%, transparent 60%);"></div>
+              <img src="ws79_ultra2.png" alt="WS 79 Ultra 2" class="showcase__panel-img" loading="eager">
+              <video src="ws79_video.mp4" muted loop playsinline class="showcase__panel-vid"></video>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: N10 Slim -->
+        <div class="showcase__panel" data-product-id="n10-smartwatch" id="panel-n10">
+          <div class="showcase__panel-bg" style="background: radial-gradient(ellipse at 70% 50%, rgba(100,160,255,0.08) 0%, transparent 65%);"></div>
+          <div class="showcase__panel-number">02</div>
+          <div class="showcase__panel-watermark">N10</div>
+          <div class="showcase__panel-content">
+            <div class="showcase__panel-info">
+              <span class="showcase__panel-tag">Design Slim</span>
+              <h3 class="showcase__panel-name">N10<br>Smartwatch</h3>
+              <p class="showcase__panel-sub">Ilha Dinâmica • Premium Ultra-Slim</p>
+              <ul class="showcase__panel-features">
+                <li><i data-lucide="phone-call"></i> Faz e recebe ligações</li>
+                <li><i data-lucide="gamepad-2"></i> Jogos integrados</li>
+                <li><i data-lucide="cloud-sun"></i> Previsão do tempo</li>
+                <li><i data-lucide="music"></i> Controle de música</li>
+              </ul>
+              <div class="showcase__panel-price">R$ <span>90</span><small>,00</small></div>
+              <div class="showcase__panel-actions">
+                <button class="btn btn--gold showcase__panel-btn" data-product="n10-smartwatch">
+                  <i data-lucide="shopping-bag"></i> Comprar Agora
+                </button>
+                <button class="showcase__panel-detail" data-product="n10-smartwatch">
+                  <i data-lucide="eye"></i> Ver Detalhes
+                </button>
+              </div>
+            </div>
+            <div class="showcase__panel-visual">
+              <div class="showcase__panel-glow" style="background: radial-gradient(circle, rgba(100,160,255,0.15) 0%, transparent 60%);"></div>
+              <img src="n10_smartwatch.jpg" alt="N10 Smartwatch" class="showcase__panel-img" loading="lazy">
+              <video src="n10_video.mp4" muted loop playsinline class="showcase__panel-vid"></video>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 3: Ultra 47mm -->
+        <div class="showcase__panel" data-product-id="ultra-47mm-premium" id="panel-ultra47">
+          <div class="showcase__panel-bg" style="background: radial-gradient(ellipse at 70% 50%, rgba(212,175,55,0.1) 0%, transparent 65%);"></div>
+          <div class="showcase__panel-number">03</div>
+          <div class="showcase__panel-watermark">U47</div>
+          <div class="showcase__panel-content">
+            <div class="showcase__panel-info">
+              <span class="showcase__panel-tag">Super Custo-Benefício</span>
+              <h3 class="showcase__panel-name">Ultra<br>47mm</h3>
+              <p class="showcase__panel-sub">Dual Core • 3 Pulseiras • ECG Avançado</p>
+              <ul class="showcase__panel-features">
+                <li><i data-lucide="cpu"></i> Processador Dual Core</li>
+                <li><i data-lucide="activity"></i> ECG + Pressão Arterial</li>
+                <li><i data-lucide="map-pin"></i> Localização em tempo real</li>
+                <li><i data-lucide="mic"></i> Comandos de voz</li>
+              </ul>
+              <div class="showcase__panel-price">R$ <span>130</span><small>,00</small></div>
+              <div class="showcase__panel-actions">
+                <button class="btn btn--gold showcase__panel-btn" data-product="ultra-47mm-premium">
+                  <i data-lucide="shopping-bag"></i> Comprar Agora
+                </button>
+                <button class="showcase__panel-detail" data-product="ultra-47mm-premium">
+                  <i data-lucide="eye"></i> Ver Detalhes
+                </button>
+              </div>
+            </div>
+            <div class="showcase__panel-visual">
+              <div class="showcase__panel-glow" style="background: radial-gradient(circle, rgba(212,175,55,0.18) 0%, transparent 60%);"></div>
+              <img src="ultra_47mm.jpg" alt="Ultra 47mm Premium" class="showcase__panel-img" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 4: S10 Microwear -->
+        <div class="showcase__panel" data-product-id="s10-microwear" id="panel-s10">
+          <div class="showcase__panel-bg" style="background: radial-gradient(ellipse at 70% 50%, rgba(140,100,255,0.1) 0%, transparent 65%);"></div>
+          <div class="showcase__panel-number">04</div>
+          <div class="showcase__panel-watermark">S10</div>
+          <div class="showcase__panel-content">
+            <div class="showcase__panel-info">
+              <span class="showcase__panel-tag">Lançamento Série 10</span>
+              <h3 class="showcase__panel-name">S10<br>Microwear</h3>
+              <p class="showcase__panel-sub">Tela Curva HD • Design Ultra-Fino • Série 10</p>
+              <ul class="showcase__panel-features">
+                <li><i data-lucide="volume-2"></i> Medidor de decibéis</li>
+                <li><i data-lucide="languages"></i> Tradutor de idiomas</li>
+                <li><i data-lucide="message-square"></i> ChatGPT em Português</li>
+                <li><i data-lucide="heart-pulse"></i> Funções de saúde avançadas</li>
+              </ul>
+              <div class="showcase__panel-price">R$ <span>170</span><small>,00</small></div>
+              <div class="showcase__panel-actions">
+                <button class="btn btn--gold showcase__panel-btn" data-product="s10-microwear">
+                  <i data-lucide="shopping-bag"></i> Comprar Agora
+                </button>
+                <button class="showcase__panel-detail" data-product="s10-microwear">
+                  <i data-lucide="eye"></i> Ver Detalhes
+                </button>
+              </div>
+            </div>
+            <div class="showcase__panel-visual">
+              <div class="showcase__panel-glow" style="background: radial-gradient(circle, rgba(140,100,255,0.18) 0%, transparent 60%);"></div>
+              <img src="s10_microwear.jpg" alt="S10 Microwear Série 10" class="showcase__panel-img" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 5: S10 PRO -->
+        <div class="showcase__panel" data-product-id="s10-pro" id="panel-s10-pro">
+          <div class="showcase__panel-bg" style="background: radial-gradient(ellipse at 70% 50%, rgba(200,100,50,0.1) 0%, transparent 65%);"></div>
+          <div class="showcase__panel-number">05</div>
+          <div class="showcase__panel-watermark">PRO</div>
+          <div class="showcase__panel-content">
+            <div class="showcase__panel-info">
+              <span class="showcase__panel-tag">1GB Memória Interna</span>
+              <h3 class="showcase__panel-name">S10 PRO<br>Microwear</h3>
+              <p class="showcase__panel-sub">Tela Curva HD • Design Fino • Memória Interna</p>
+              <ul class="showcase__panel-features">
+                <li><i data-lucide="music"></i> Conexão direto c/ Fone Bluetooth</li>
+                <li><i data-lucide="mic"></i> Medidor de decibéis & Tradutor</li>
+                <li><i data-lucide="message-square"></i> ChatGPT em Português</li>
+                <li><i data-lucide="activity"></i> Mais funções de saúde</li>
+              </ul>
+              <div class="showcase__panel-price">R$ <span>190</span><small>,00</small></div>
+              <div class="showcase__panel-actions">
+                <button class="btn btn--gold showcase__panel-btn" data-product="s10-pro">
+                  <i data-lucide="shopping-bag"></i> Comprar Agora
+                </button>
+                <button class="showcase__panel-detail" data-product="s10-pro">
+                  <i data-lucide="eye"></i> Ver Detalhes
+                </button>
+              </div>
+            </div>
+            <div class="showcase__panel-visual">
+              <div class="showcase__panel-glow" style="background: radial-gradient(circle, rgba(200,100,50,0.18) 0%, transparent 60%);"></div>
+              <img src="s10_pro.jpg" alt="S10 PRO Microwear" class="showcase__panel-img" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 6: S11 Série 11 -->
+        <div class="showcase__panel" data-product-id="s11-microwear" id="panel-s11">
+          <div class="showcase__panel-bg" style="background: radial-gradient(ellipse at 70% 50%, rgba(100,200,150,0.1) 0%, transparent 65%);"></div>
+          <div class="showcase__panel-number">06</div>
+          <div class="showcase__panel-watermark">S11</div>
+          <div class="showcase__panel-content">
+            <div class="showcase__panel-info">
+              <span class="showcase__panel-tag">Lançamento Série 11</span>
+              <h3 class="showcase__panel-name">S11<br>Série 11</h3>
+              <p class="showcase__panel-sub">O Mais Avançado: WhatsApp • GPS Pareado</p>
+              <ul class="showcase__panel-features">
+                <li><i data-lucide="message-circle"></i> Responde WhatsApp</li>
+                <li><i data-lucide="map-pin"></i> GPS Pareado c/ Celular</li>
+                <li><i data-lucide="cpu"></i> ChatGPT Integrado</li>
+                <li><i data-lucide="phone-call"></i> Faz e recebe ligações / Notificações</li>
+              </ul>
+              <div class="showcase__panel-price">R$ <span>250</span><small>,00</small></div>
+              <div class="showcase__panel-actions">
+                <button class="btn btn--gold showcase__panel-btn" data-product="s11-microwear">
+                  <i data-lucide="shopping-bag"></i> Comprar Agora
+                </button>
+                <button class="showcase__panel-detail" data-product="s11-microwear">
+                  <i data-lucide="eye"></i> Ver Detalhes
+                </button>
+              </div>
+            </div>
+            <div class="showcase__panel-visual">
+              <div class="showcase__panel-glow" style="background: radial-gradient(circle, rgba(100,200,150,0.18) 0%, transparent 60%);"></div>
+              <img src="s11_microwear.jpg" alt="S11 Série 11" class="showcase__panel-img" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 7: S11 Pro -->
+        <div class="showcase__panel" data-product-id="s11-pro" id="panel-s11-pro">
+          <div class="showcase__panel-bg" style="background: radial-gradient(ellipse at 70% 50%, rgba(200,50,50,0.1) 0%, transparent 65%);"></div>
+          <div class="showcase__panel-number">07</div>
+          <div class="showcase__panel-watermark">PRO</div>
+          <div class="showcase__panel-content">
+            <div class="showcase__panel-info">
+              <span class="showcase__panel-tag">Tela AMOLED • 2GB</span>
+              <h3 class="showcase__panel-name">S11 Pro<br>Microwear</h3>
+              <p class="showcase__panel-sub">Série 11 Premium de 47mm com 2GB de Memória</p>
+              <ul class="showcase__panel-features">
+                <li><i data-lucide="message-circle"></i> Responde WhatsApp & ChatGPT</li>
+                <li><i data-lucide="map-pin"></i> GPS Pareado com o celular</li>
+                <li><i data-lucide="smartphone"></i> Tela AMOLED e Ligações</li>
+                <li><i data-lucide="music"></i> 2GB de Memória Interna</li>
+              </ul>
+              <div class="showcase__panel-price">R$ <span>199</span><small>,00</small></div>
+              <div class="showcase__panel-actions">
+                <button class="btn btn--gold showcase__panel-btn" data-product="s11-pro">
+                  <i data-lucide="shopping-bag"></i> Comprar Agora
+                </button>
+                <button class="showcase__panel-detail" data-product="s11-pro">
+                  <i data-lucide="eye"></i> Ver Detalhes
+                </button>
+              </div>
+            </div>
+            <div class="showcase__panel-visual">
+              <div class="showcase__panel-glow" style="background: radial-gradient(circle, rgba(200,50,50,0.18) 0%, transparent 60%);"></div>
+              <img src="s11_pro.jpg" alt="S11 Pro Microwear" class="showcase__panel-img" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 8: S11 Mini -->
+        <div class="showcase__panel" data-product-id="s11-mini" id="panel-s11-mini">
+          <div class="showcase__panel-bg" style="background: radial-gradient(ellipse at 70% 50%, rgba(200,150,50,0.1) 0%, transparent 65%);"></div>
+          <div class="showcase__panel-number">08</div>
+          <div class="showcase__panel-watermark">MINI</div>
+          <div class="showcase__panel-content">
+            <div class="showcase__panel-info">
+              <span class="showcase__panel-tag">Compacto & Leve</span>
+              <h3 class="showcase__panel-name">S11 Mini<br>Smartwatch</h3>
+              <p class="showcase__panel-sub">O conforto e a leveza que o seu pulso merece</p>
+              <ul class="showcase__panel-features">
+                <li><i data-lucide="minimize"></i> Design Moderno e Compacto</li>
+                <li><i data-lucide="feather"></i> Ultra-leve no pulso</li>
+                <li><i data-lucide="cpu"></i> Tecnologia avançada Microwear</li>
+                <li><i data-lucide="activity"></i> Funcionalidades completas de saúde</li>
+              </ul>
+              <div class="showcase__panel-price">R$ <span>210</span><small>,00</small></div>
+              <div class="showcase__panel-actions">
+                <button class="btn btn--gold showcase__panel-btn" data-product="s11-mini">
+                  <i data-lucide="shopping-bag"></i> Comprar Agora
+                </button>
+                <button class="showcase__panel-detail" data-product="s11-mini">
+                  <i data-lucide="eye"></i> Ver Detalhes
+                </button>
+              </div>
+            </div>
+            <div class="showcase__panel-visual">
+              <div class="showcase__panel-glow" style="background: radial-gradient(circle, rgba(200,150,50,0.18) 0%, transparent 60%);"></div>
+              <img src="s11_mini.jpg" alt="S11 Mini Smartwatch" class="showcase__panel-img" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 9: W11 Mini -->
+        <div class="showcase__panel" data-product-id="w11-mini" id="panel-w11-mini">
+          <div class="showcase__panel-bg" style="background: radial-gradient(ellipse at 70% 50%, rgba(255,100,50,0.1) 0%, transparent 65%);"></div>
+          <div class="showcase__panel-number">09</div>
+          <div class="showcase__panel-watermark">MINI</div>
+          <div class="showcase__panel-content">
+            <div class="showcase__panel-info">
+              <span class="showcase__panel-tag">Tela IPS HD 1.85"</span>
+              <h3 class="showcase__panel-name">W11 Mini<br>Smartwatch</h3>
+              <p class="showcase__panel-sub">Equilíbrio perfeito entre tecnologia e design compacto</p>
+              <ul class="showcase__panel-features">
+                <li><i data-lucide="monitor"></i> Tela IPS HD de 1.85"</li>
+                <li><i data-lucide="cpu"></i> Desempenho fluido Série 11</li>
+                <li><i data-lucide="minimize"></i> Design Moderno e Compacto</li>
+                <li><i data-lucide="smartphone"></i> Moderno, inteligente e prático</li>
+              </ul>
+              <div class="showcase__panel-price">R$ <span>210</span><small>,00</small></div>
+              <div class="showcase__panel-actions">
+                <button class="btn btn--gold showcase__panel-btn" data-product="w11-mini">
+                  <i data-lucide="shopping-bag"></i> Comprar Agora
+                </button>
+                <button class="showcase__panel-detail" data-product="w11-mini">
+                  <i data-lucide="eye"></i> Ver Detalhes
+                </button>
+              </div>
+            </div>
+            <div class="showcase__panel-visual">
+              <div class="showcase__panel-glow" style="background: radial-gradient(circle, rgba(255,100,50,0.18) 0%, transparent 60%);"></div>
+              <img src="w11_mini.jpg" alt="W11 Mini Smartwatch" class="showcase__panel-img" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 10: W11 Pro MINI -->
+        <div class="showcase__panel" data-product-id="w11-pro-mini" id="panel-w11-pro-mini">
+          <div class="showcase__panel-bg" style="background: radial-gradient(ellipse at 70% 50%, rgba(200,60,60,0.1) 0%, transparent 65%);"></div>
+          <div class="showcase__panel-number">10</div>
+          <div class="showcase__panel-watermark">PRO MINI</div>
+          <div class="showcase__panel-content">
+            <div class="showcase__panel-info">
+              <span class="showcase__panel-tag">42mm Premium</span>
+              <h3 class="showcase__panel-name">W11 Pro<br>MINI</h3>
+              <p class="showcase__panel-sub">Lançamento de 42mm com recursos top de linha</p>
+              <ul class="showcase__panel-features">
+                <li><i data-lucide="smartphone"></i> Tela AMOLED Brilhante</li>
+                <li><i data-lucide="message-circle"></i> Responde ao WhatsApp e ChatGPT</li>
+                <li><i data-lucide="music"></i> 1GB de Memória Interna</li>
+                <li><i data-lucide="cpu"></i> Recursos ultra-premium em 42mm</li>
+              </ul>
+              <div class="showcase__panel-price">R$ <span>250</span><small>,00</small></div>
+              <div class="showcase__panel-actions">
+                <button class="btn btn--gold showcase__panel-btn" data-product="w11-pro-mini">
+                  <i data-lucide="shopping-bag"></i> Comprar Agora
+                </button>
+                <button class="showcase__panel-detail" data-product="w11-pro-mini">
+                  <i data-lucide="eye"></i> Ver Detalhes
+                </button>
+              </div>
+            </div>
+            <div class="showcase__panel-visual">
+              <div class="showcase__panel-glow" style="background: radial-gradient(circle, rgba(200,60,60,0.18) 0%, transparent 60%);"></div>
+              <img src="w11_pro_mini.jpg" alt="W11 Pro MINI" class="showcase__panel-img" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 11: W11X -->
+        <div class="showcase__panel" data-product-id="w11x" id="panel-w11x">
+          <div class="showcase__panel-bg" style="background: radial-gradient(ellipse at 70% 50%, rgba(100,200,250,0.1) 0%, transparent 65%);"></div>
+          <div class="showcase__panel-number">11</div>
+          <div class="showcase__panel-watermark">W11X</div>
+          <div class="showcase__panel-content">
+            <div class="showcase__panel-info">
+              <span class="showcase__panel-tag">Lançamento Premium</span>
+              <h3 class="showcase__panel-name">W11X<br>Microwear</h3>
+              <p class="showcase__panel-sub">O essencial no mais alto nível de performance</p>
+              <ul class="showcase__panel-features">
+                <li><i data-lucide="music"></i> 1GB de Memória Interna</li>
+                <li><i data-lucide="message-square"></i> Responde ao WhatsApp diretamente</li>
+                <li><i data-lucide="cpu"></i> ChatGPT Integrado</li>
+                <li><i data-lucide="star"></i> Funções premium pro dia a dia</li>
+              </ul>
+              <div class="showcase__panel-price">R$ <span>199</span><small>,00</small></div>
+              <div class="showcase__panel-actions">
+                <button class="btn btn--gold showcase__panel-btn" data-product="w11x">
+                  <i data-lucide="shopping-bag"></i> Comprar Agora
+                </button>
+                <button class="showcase__panel-detail" data-product="w11x">
+                  <i data-lucide="eye"></i> Ver Detalhes
+                </button>
+              </div>
+            </div>
+            <div class="showcase__panel-visual">
+              <div class="showcase__panel-glow" style="background: radial-gradient(circle, rgba(100,200,250,0.18) 0%, transparent 60%);"></div>
+              <img src="w11x.jpg" alt="W11X Microwear" class="showcase__panel-img" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 12: GT5 MINI Max -->
+        <div class="showcase__panel" data-product-id="gt5-mini-max" id="panel-gt5-mini">
+          <div class="showcase__panel-bg" style="background: radial-gradient(ellipse at 70% 50%, rgba(200,160,100,0.1) 0%, transparent 65%);"></div>
+          <div class="showcase__panel-number">12</div>
+          <div class="showcase__panel-watermark">GT5 MINI</div>
+          <div class="showcase__panel-content">
+            <div class="showcase__panel-info">
+              <span class="showcase__panel-tag">Design Arredondado</span>
+              <h3 class="showcase__panel-name">GT5 MINI<br>Max</h3>
+              <p class="showcase__panel-sub">Robustez e tecnologia no formato clássico</p>
+              <ul class="showcase__panel-features">
+                <li><i data-lucide="circle"></i> Lindo Design Circular Geométrico</li>
+                <li><i data-lucide="cpu"></i> ChatGPT Integrado</li>
+                <li><i data-lucide="map-pin"></i> GPS Pareado com o Celular</li>
+                <li><i data-lucide="shield-check"></i> Muito mais resistência e autonomia</li>
+              </ul>
+              <div class="showcase__panel-price">R$ <span>199</span><small>,00</small></div>
+              <div class="showcase__panel-actions">
+                <button class="btn btn--gold showcase__panel-btn" data-product="gt5-mini-max">
+                  <i data-lucide="shopping-bag"></i> Comprar Agora
+                </button>
+                <button class="showcase__panel-detail" data-product="gt5-mini-max">
+                  <i data-lucide="eye"></i> Ver Detalhes
+                </button>
+              </div>
+            </div>
+            <div class="showcase__panel-visual">
+              <div class="showcase__panel-glow" style="background: radial-gradient(circle, rgba(200,160,100,0.18) 0%, transparent 60%);"></div>
+              <img src="gt5_mini.jpg" alt="GT5 MINI Max" class="showcase__panel-img" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <!-- Progress Bar & Dots -->
+      <div class="showcase__nav">
+        <div class="showcase__dots" id="showcase-dots">
+          <button class="showcase__dot active" data-panel="0"></button>
+          <button class="showcase__dot" data-panel="1"></button>
+          <button class="showcase__dot" data-panel="2"></button>
+          <button class="showcase__dot" data-panel="3"></button>
+          <button class="showcase__dot" data-panel="4"></button>
+          <button class="showcase__dot" data-panel="5"></button>
+          <button class="showcase__dot" data-panel="6"></button>
+          <button class="showcase__dot" data-panel="7"></button>
+          <button class="showcase__dot" data-panel="8"></button>
+          <button class="showcase__dot" data-panel="9"></button>
+          <button class="showcase__dot" data-panel="10"></button>
+          <button class="showcase__dot" data-panel="11"></button>
+        </div>
+        <div class="showcase__progress-bar">
+          <div class="showcase__progress-fill" id="showcase-progress"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ===== SIMULATOR SECTION ===== -->
+  <section class="simulator" id="simulator">
+    <div class="simulator__header">
+      <span class="section-tag">CUSTOMIZAÇÃO REAL-TIME</span>
+      <h2 class="section-title">Simulador de <span class="gold-text">Watchfaces</span></h2>
+      <p class="section-desc">Experimente diferentes estilos e descubra o mostrador perfeito para você.</p>
+    </div>
+
+    <div class="simulator__studio">
+      <div class="simulator__preview">
+        <div class="simulator__glow"></div>
+        <video src="relogio_video.mov" autoplay muted loop playsinline class="simulator__video" id="simulator-video" style="width: 100%; height: 100%; object-fit: cover;"></video>
+        <div class="simulator__scan-line"></div>
+      </div>
+
+      <div class="simulator__controls">
+        <div class="sim-ctrl">
+          <h3><i data-lucide="palette"></i> Estilo do Mostrador</h3>
+          <div class="sim-ctrl__grid" id="face-style-selector">
+            <button class="sim-btn active" data-face="nero-marble">
+              <span class="sim-btn__preview sim-prev--marble"></span>
+              <span>Nero Marble</span>
+            </button>
+            <button class="sim-btn" data-face="wf-chrono">
+              <span class="sim-btn__preview sim-prev--chrono"></span>
+              <span>WF Chrono</span>
+            </button>
+            <button class="sim-btn" data-face="cosmos-digital">
+              <span class="sim-btn__preview sim-prev--cosmos"></span>
+              <span>Cosmos Digital</span>
+            </button>
+            <button class="sim-btn" data-face="minimal-gold">
+              <span class="sim-btn__preview sim-prev--minimal"></span>
+              <span>Minimal Gold</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="sim-ctrl">
+          <h3><i data-lucide="clock"></i> Ponteiros</h3>
+          <div class="sim-ctrl__grid" id="hand-style-selector">
+            <button class="sim-btn active" data-hands="classic-gold"><span>Imperial Gold</span></button>
+            <button class="sim-btn" data-hands="glowing-blue"><span>Futuristic Cyan</span></button>
+            <button class="sim-btn" data-hands="minimal-thin"><span>Minimal Thin</span></button>
+            <button class="sim-btn" data-hands="none"><span>Sem Ponteiros</span></button>
+          </div>
+        </div>
+
+        <div class="sim-ctrl">
+          <h3><i data-lucide="layout-grid"></i> Widgets</h3>
+          <p class="sim-ctrl__hint">Selecione até 2</p>
+          <div class="sim-ctrl__grid" id="complications-selector">
+            <button class="sim-btn check-opt" data-widget="heart">
+              <i data-lucide="heart" class="sim-btn__icon"></i>
+              <span>Batimentos</span>
+            </button>
+            <button class="sim-btn check-opt" data-widget="steps">
+              <i data-lucide="footprints" class="sim-btn__icon"></i>
+              <span>Passos</span>
+            </button>
+            <button class="sim-btn check-opt" data-widget="battery">
+              <i data-lucide="battery" class="sim-btn__icon"></i>
+              <span>Bateria</span>
+            </button>
+            <button class="sim-btn check-opt" data-widget="weather">
+              <i data-lucide="cloud-sun" class="sim-btn__icon"></i>
+              <span>Clima</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="sim-ctrl">
+          <h3><i data-lucide="shield"></i> Acabamento</h3>
+          <div class="sim-ctrl__grid" id="case-material-selector">
+            <button class="sim-btn active" data-case="gold">
+              <span class="sim-btn__preview sim-prev--gold"></span>
+              <span>Ouro 18K Polido</span>
+            </button>
+            <button class="sim-btn" data-case="dark">
+              <span class="sim-btn__preview sim-prev--dark"></span>
+              <span>Titânio Negro</span>
+            </button>
+          </div>
+        </div>
+
+        <button class="btn btn--gold btn--full" id="apply-face-btn">
+          <i data-lucide="check-circle-2"></i>
+          <span>Sincronizar Watchface</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STORE / PRODUCTS ===== -->
+  <section class="store" id="store">
+    <div class="store__header">
+      <span class="section-tag">VITRINE PREMIUM</span>
+      <h2 class="section-title">Acessórios & <span class="gold-text">Equipamentos</span></h2>
+      <p class="section-desc">Eleve sua experiência com pulseiras exclusivas, carregadores premium e acessórios de alta qualidade.</p>
+    </div>
+
+    <div class="store__filters">
+      <button class="filter-pill active" data-filter="all">Todos</button>
+      <button class="filter-pill" data-filter="watch">Smartwatches</button>
+      <button class="filter-pill" data-filter="buds">Fones</button>
+      <button class="filter-pill" data-filter="straps">Pulseiras</button>
+      <button class="filter-pill" data-filter="cases">Acessórios</button>
+    </div>
+
+    <div class="store__grid" id="products-container">
+      <!-- Products rendered by JS -->
+    </div>
+  </section>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-drawer__header">
+      <h3><i data-lucide="shopping-bag"></i> Seu Carrinho</h3>
+      <button class="cart-drawer__close" id="close-cart-btn" aria-label="Fechar">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <div class="cart-empty" id="cart-empty">
+      <i data-lucide="shopping-cart" class="cart-empty__icon"></i>
+      <h4>Carrinho vazio</h4>
+      <p>Explore nossa loja e encontre o smartwatch ideal.</p>
+      <a href="#store" class="btn btn--gold btn--sm" id="cart-continue-shopping">Ver Produtos</a>
+    </div>
+    <div class="cart-active hidden" id="cart-active">
+      <div class="cart-items" id="cart-items-container"></div>
+      <div class="cart-footer">
+        <div class="cart-footer__row">
+          <span>Frete:</span>
+          <span class="gold-text"><strong>Grátis</strong></span>
+        </div>
+        <div class="cart-footer__row cart-footer__total">
+          <span>Total:</span>
+          <span class="cart-total" id="cart-total-value">R$ 0,00</span>
+        </div>
+        <button class="btn btn--gold btn--full" id="start-checkout-btn">
+          <span>Finalizar Compra</span>
+          <i data-lucide="credit-card"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CHECKOUT MODAL ===== -->
+  <div class="checkout-backdrop hidden" id="checkout-modal">
+    <div class="checkout-modal">
+      <button class="checkout-modal__close" id="close-checkout-btn" aria-label="Fechar">
+        <i data-lucide="x"></i>
+      </button>
+      
+      <!-- Step 1: Form -->
+      <div class="checkout-step" id="checkout-step-form">
+        <div class="checkout-step__header">
+          <h2>Finalizar Compra <span class="gold-text">WF Imports</span></h2>
+          <p>Preencha seus dados para concluir o pedido.</p>
+        </div>
+        <form class="checkout-form" id="checkout-form-submit" onsubmit="event.preventDefault();">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="c-name">Nome Completo</label>
+              <input type="text" id="c-name" placeholder="Seu nome" required>
+            </div>
+            <div class="form-group">
+              <label for="c-cpf">CPF</label>
+              <input type="text" id="c-cpf" placeholder="000.000.000-00" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="c-email">E-mail</label>
+              <input type="email" id="c-email" placeholder="nome@email.com" required>
+            </div>
+            <div class="form-group">
+              <label for="c-tel">Telefone</label>
+              <input type="tel" id="c-tel" placeholder="(11) 99999-9999" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="c-address">Endereço</label>
+            <input type="text" id="c-address" placeholder="Rua, número, cidade - UF" required>
+          </div>
+
+          <div class="checkout-action">
+            <div class="checkout-total-display">
+              <span>Total:</span>
+              <strong id="checkout-total-price-text">R$ 0,00</strong>
+            </div>
+            <button type="submit" class="btn btn--gold" id="confirm-payment-btn">
+              <i data-lucide="message-circle"></i>
+              <span>Finalizar via WhatsApp</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 2: Success -->
+      <div class="checkout-step hidden" id="checkout-step-success">
+        <div class="success-visual">
+          <canvas id="success-particles" class="success-canvas"></canvas>
+          <div class="success-ring">
+            <i data-lucide="check" class="success-check"></i>
+          </div>
+        </div>
+        <h2 class="success-title">Pedido Confirmado!</h2>
+        <p class="success-desc">Seu pedido foi registrado. Entraremos em contato em breve para alinhar a entrega.</p>
+        <div class="receipt-card" id="receipt-details"></div>
+        <button class="btn btn--gold" id="finish-success-btn">
+          <span>Voltar ao Início</span>
+          <i data-lucide="home"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PRODUCT DETAIL MODAL ===== -->
+  <div class="pm-backdrop" id="product-modal-backdrop">
+    <div class="pm" id="product-modal-container">
+      <button class="pm__close" id="product-modal-close" aria-label="Fechar">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="pm__image" id="pm-image-panel">
+        <span class="pm__badge" id="pm-badge">Destaque</span>
+        <img src="" alt="" class="pm__img hidden" id="pm-img">
+        <div class="pm__svg hidden" id="pm-svg-wrapper"></div>
+        <div class="pm__mini-video hidden" id="pm-mini-video-wrapper">
+          <video src="" muted loop playsinline id="pm-mini-video"></video>
+        </div>
+        <div class="pm__dots" id="pm-dots">
+          <div class="pm__dot active"></div>
+          <div class="pm__dot"></div>
+          <div class="pm__dot"></div>
+        </div>
+      </div>
+      <div class="pm__info">
+        <div class="pm__category" id="pm-category">Relógio Inteligente</div>
+        <h2 class="pm__title" id="pm-title">Produto</h2>
+        <div class="pm__rating">
+          <div class="pm__stars">★★★★★</div>
+          <span id="pm-rating-count">(128 avaliações)</span>
+        </div>
+        <div class="pm__price-block">
+          <span class="pm__price" id="pm-price">R$ 0,00</span>
+          <span class="pm__installments" id="pm-installments">ou 12x sem juros</span>
+        </div>
+        <div class="pm__divider"></div>
+        <p class="pm__desc" id="pm-desc">Descrição do produto.</p>
+        <div class="pm__variants" id="pm-variant-section">
+          <div class="pm__variant-label">
+            <span>Pulseira</span>
+            <span id="pm-selected-variant">Padrão</span>
+          </div>
+          <div class="pm__swatches" id="pm-swatches"></div>
+        </div>
+        <div class="pm__features" id="pm-features"></div>
+        <div class="pm__actions">
+          <div class="pm__qty">
+            <button class="pm__qty-btn" id="pm-qty-minus" aria-label="Diminuir">−</button>
+            <span class="pm__qty-val" id="pm-qty-val">1</span>
+            <button class="pm__qty-btn" id="pm-qty-plus" aria-label="Aumentar">+</button>
+          </div>
+          <button class="pm__add-btn" id="pm-add-cart-btn">
+            <i data-lucide="shopping-bag"></i>
+            <span>Adicionar</span>
+          </button>
+          <button class="pm__wish-btn" id="pm-wishlist-btn" aria-label="Favoritar">
+            <i data-lucide="heart" id="pm-heart-icon"></i>
+          </button>
+        </div>
+        <div class="pm__trust">
+          <div class="pm__trust-item"><i data-lucide="shield-check"></i><span>Garantia</span></div>
+          <div class="pm__trust-item"><i data-lucide="truck"></i><span>Frete Grátis</span></div>
+          <div class="pm__trust-item"><i data-lucide="refresh-ccw"></i><span>Troca 30d</span></div>
+          <div class="pm__trust-item"><i data-lucide="lock"></i><span>Seguro</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="logo-mark">
+          <span class="logo-w">W</span><span class="logo-f">F</span>
+        </div>
+        <p>WF Imports — Smartwatches e acessórios premium que combinam tecnologia avançada com design sofisticado.</p>
+        <div class="footer__social">
+          <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+          <a href="#" aria-label="YouTube"><i data-lucide="youtube"></i></a>
+          <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Coleções</h4>
+        <ul>
+          <li><a href="#showcase">WS 79 Ultra 2</a></li>
+          <li><a href="#showcase">N10 Slim</a></li>
+          <li><a href="#showcase">Ultra 47mm</a></li>
+          <li><a href="#showcase">S10 Microwear</a></li>
+          <li><a href="#showcase">S10 PRO</a></li>
+          <li><a href="#showcase">S11 Série 11</a></li>
+          <li><a href="#showcase">S11 Pro</a></li>
+          <li><a href="#showcase">S11 Mini</a></li>
+          <li><a href="#showcase">W11 Mini</a></li>
+          <li><a href="#showcase">W11 Pro MINI</a></li>
+          <li><a href="#showcase">W11X</a></li>
+          <li><a href="#showcase">GT5 MINI Max</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Experiência</h4>
+        <ul>
+          <li><a href="#features">Tecnologia</a></li>
+          <li><a href="#simulator">Simulador</a></li>
+          <li><a href="#">Suporte</a></li>
+          <li><a href="#">Garantia</a></li>
+        </ul>
+      </div>
+      <div class="footer__newsletter">
+        <h4>Newsletter</h4>
+        <p>Receba novidades e ofertas exclusivas.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('E-mail cadastrado!'); this.reset();">
+          <input type="email" placeholder="seu@email.com" required>
+          <button type="submit" aria-label="Inscrever"><i data-lucide="arrow-right"></i></button>
+        </form>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 WF Imports. Todos os direitos reservados.</span>
+      <div class="footer__bottom-links">
+        <a href="#">Termos</a>
+        <a href="#">Privacidade</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP for Advanced Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+  
+  <script src="index.js"></script>
+</body>
+</html>
