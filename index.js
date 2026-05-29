@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'O novo GS11 Mini chegou para quem busca um smartwatch moderno, leve e funcional para o dia a dia. Com design compacto, tela ampla e sistema fluido, ele entrega praticidade e desempenho em um único produto. Mesmo sendo um modelo mini, ele é completo. Conta com funções como chamadas via Bluetooth, NFC e monitoramento de saúde, além de diversas opções de personalização para combinar com o seu estilo.',
       price: 199.00,
       badge: 'Design Compacto',
-      image: 'gs11_mini.jpg',
+      image: 'gs11_mini.jpg.jpg',
       features: ['Chamadas Bluetooth', 'NFC', 'Saúde', 'Personalizável'],
       variants: [
         { name: 'Padrão', color: '#111111' }
@@ -713,7 +713,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cart.forEach(item => {
       const itemTotal = item.price * item.qty;
       totalPrice += itemTotal;
-      const variantText = item.variant ? ` (Cor: ${item.variant})` : '';
+      const variantText = item.variant ? ` (Cor da Pulseira: ${item.variant})` : '';
       cartText += `- ${item.qty}x ${item.title}${variantText} - ${formatPrice(itemTotal)}\n`;
     });
 
