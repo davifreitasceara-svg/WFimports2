@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       badge: 'Destaque Imperial',
       image: 'ws79_ultra2.png',
       features: ['49mm', '3 Pulseiras', 'Ligações', 'IP68'],
+      video: 'ws79_video.mp4',
       variants: [
         { name: 'Ocean Orange', color: '#FF6B35' },
         { name: 'Milanese Silver', color: '#C0C0C0' },
@@ -31,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
       badge: 'Design Slim',
       image: 'n10_smartwatch.jpg',
       features: ['Slim', 'Ilha Dinâmica', 'Ligações', 'Jogos'],
+      video: 'n10_video.mp4',
       variants: [
         { name: 'Azul Navy', color: '#1B3A5C' },
         { name: 'Preto', color: '#111111' }
@@ -173,6 +175,19 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Preto', color: '#111111' },
       ]
     },
+    {
+      id: 'gs11-mini',
+      title: 'GS11 Mini Smartwatch',
+      category: 'watch',
+      desc: 'O novo GS11 Mini chegou para quem busca um smartwatch moderno, leve e funcional para o dia a dia. Com design compacto, tela ampla e sistema fluido, ele entrega praticidade e desempenho em um único produto. Mesmo sendo um modelo mini, ele é completo. Conta com funções como chamadas via Bluetooth, NFC e monitoramento de saúde, além de diversas opções de personalização para combinar com o seu estilo.',
+      price: 199.00,
+      badge: 'Design Compacto',
+      image: 'gs11_mini.jpg',
+      features: ['Chamadas Bluetooth', 'NFC', 'Saúde', 'Personalizável'],
+      variants: [
+        { name: 'Padrão', color: '#111111' }
+      ]
+    }
 
   ];
 
@@ -809,6 +824,18 @@ document.addEventListener('DOMContentLoaded', () => {
       svgWrap.innerHTML = product.svg;
       svgWrap.classList.remove('hidden');
       img.classList.add('hidden');
+    }
+
+    const miniVideoWrapper = $('#pm-mini-video-wrapper');
+    const miniVideo = $('#pm-mini-video');
+    if (product.video) {
+      miniVideo.src = product.video;
+      miniVideoWrapper.classList.remove('hidden');
+      miniVideo.play().catch(() => {});
+    } else {
+      miniVideo.src = '';
+      miniVideoWrapper.classList.add('hidden');
+      miniVideo.pause();
     }
 
     const catMap = { watch: 'Relógio Inteligente', buds: 'Fones de Ouvido', straps: 'Pulseira', cases: 'Acessório' };
