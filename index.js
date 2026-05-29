@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: 'Modelo de 49mm com incrível kit de 3 pulseiras (Ocean, Milanese e Couro). Tela super brilhante de 2.2" de cores vivas e acabamento premium com parafusos reais. Faz e recebe ligações, exibe notificações, monitora atividades físicas (modos esporte) e sono, possui controle remoto de câmera e música, assistente de voz, senha de bloqueio e trava física de pulseira.',
       price: 100.00,
       badge: 'Destaque Imperial',
-      image: 'ws79_ultra2.png',
+      image: 'ws79_novo.jpg',
       features: ['49mm', '3 Pulseiras', 'Ligações', 'IP68'],
       video: 'ws79_video.mp4',
       variants: [
