@@ -238,163 +238,8 @@ document.addEventListener('DOMContentLoaded', () => {
     l.addEventListener('click', () => mobileMenu.classList.remove('open'));
   });
 
-  // ===== CINEMATIC HERO ANIMATION ENGINE =====
-  (function initCinematicHero() {
-    const canvas = document.getElementById('hero-particles-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let animationId;
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    // Track mouse for particle interaction
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    // Particle class
-    class GoldParticle {
-      constructor() {
-        this.reset();
-      }
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 3 + 0.5;
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.3 - 0.2;
-        this.opacity = Math.random() * 0.6 + 0.1;
-        this.fadeSpeed = Math.random() * 0.005 + 0.002;
-        this.growing = Math.random() > 0.5;
-        this.shimmerPhase = Math.random() * Math.PI * 2;
-        this.shimmerSpeed = Math.random() * 0.02 + 0.01;
-        // Gold color variations
-        const goldColors = [
-          [255, 215, 0],    // Gold
-          [212, 175, 55],   // Dark Gold
-          [245, 226, 159],  // Light Gold
-          [170, 124, 17],   // Bronze Gold
-          [255, 223, 100],  // Bright Gold
-        ];
-        this.color = goldColors[Math.floor(Math.random() * goldColors.length)];
-      }
-      update() {
-        // Shimmer
-        this.shimmerPhase += this.shimmerSpeed;
-        const shimmer = Math.sin(this.shimmerPhase) * 0.3 + 0.7;
-
-        // Gentle movement
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        // Mouse repulsion (subtle)
-        const dx = this.x - mouseX;
-        const dy = this.y - mouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 150) {
-          const force = (150 - dist) / 150 * 0.3;
-          this.x += (dx / dist) * force;
-          this.y += (dy / dist) * force;
-        }
-
-        // Fade in/out
-        if (this.growing) {
-          this.opacity += this.fadeSpeed;
-          if (this.opacity >= 0.7) this.growing = false;
-        } else {
-          this.opacity -= this.fadeSpeed;
-          if (this.opacity <= 0) this.reset();
-        }
-
-        // Wrap around
-        if (this.x < -10) this.x = canvas.width + 10;
-        if (this.x > canvas.width + 10) this.x = -10;
-        if (this.y < -10) this.reset();
-        if (this.y > canvas.height + 10) this.y = -10;
-
-        return shimmer;
-      }
-      draw(shimmer) {
-        const [r, g, b] = this.color;
-        const alpha = this.opacity * shimmer;
-        
-        // Glow
-        ctx.beginPath();
-        const gradient = ctx.createRadialGradient(
-          this.x, this.y, 0,
-          this.x, this.y, this.size * 4
-        );
-        gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${alpha * 0.4})`);
-        gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
-        ctx.fillStyle = gradient;
-        ctx.arc(this.x, this.y, this.size * 4, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Core
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
-        ctx.fill();
-      }
-    }
-
-    // Create particles
-    const PARTICLE_COUNT = Math.min(80, Math.floor(window.innerWidth / 15));
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      particles.push(new GoldParticle());
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        const shimmer = p.update();
-        p.draw(shimmer);
-      });
-      animationId = requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
-
-    // ===== SEQUENCED REVEAL TIMELINE =====
-    const timeline = [
-      { delay: 300,  action: () => document.getElementById('hero-gold-ring')?.classList.add('visible') },
-      { delay: 600,  action: () => document.getElementById('hero-watch-left')?.classList.add('revealed') },
-      { delay: 1400, action: () => document.getElementById('hero-cinema-badge')?.classList.add('revealed') },
-      { delay: 1800, action: () => document.getElementById('hero-title-line1')?.classList.add('revealed') },
-      { delay: 2200, action: () => document.getElementById('hero-title-line2')?.classList.add('revealed') },
-      { delay: 2700, action: () => document.getElementById('hero-cinema-desc')?.classList.add('revealed') },
-      { delay: 3200, action: () => document.getElementById('hero-cinema-actions')?.classList.add('revealed') },
-      { delay: 3600, action: () => document.getElementById('hero-cinema-stats')?.classList.add('revealed') },
-      { delay: 4000, action: () => document.getElementById('hero-scroll-hint')?.classList.add('revealed') },
-    ];
-
-    timeline.forEach(({ delay, action }) => {
-      setTimeout(action, delay);
-    });
-
-    // Pause particles when hero is out of view
-    const heroSection = document.getElementById('hero');
-    if (heroSection && typeof IntersectionObserver !== 'undefined') {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) {
-            cancelAnimationFrame(animationId);
-          } else {
-            animateParticles();
-          }
-        });
-      }, { threshold: 0.1 });
-      observer.observe(heroSection);
-    }
-  })();
+  // Elementos do hero video apenas têm animação via css (vidFadeUp) no load.
+  // Vamos configurar o ScrollTrigger para expandir o video!
 
   // ===== BENTO GRID VIDEO AUTOPLAY ON HOVER =====
   $$('.bento__card[data-watch]').forEach(card => {
@@ -531,43 +376,45 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // 5. Cinematic Hero Parallax
-    gsap.to('.hero__watches-stage', {
-      scrollTrigger: {
-        trigger: '.hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1
-      },
-      y: 120,
-      scale: 0.85,
-      opacity: 0.3,
-      ease: 'none'
-    });
+    // 5. Cinematic Video Hero Scroll Expansion
+    const heroStage = document.getElementById('hero-video-section');
+    if (heroStage) {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: heroStage,
+          start: "top top",
+          end: "+=150%", // Scroll depth for the animation
+          scrub: 1.5,
+          pin: true,
+          anticipatePin: 1
+        }
+      });
 
-    gsap.to('.hero__cinema-content', {
-      scrollTrigger: {
-        trigger: '.hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1
-      },
-      y: -60,
-      opacity: 0,
-      ease: 'none'
-    });
+      // Expand container to full screen
+      tl.to('.hero-vid__container', {
+        width: '100%', // fixed from 100vw to avoid scrollbar
+        height: '100vh',
+        borderRadius: 0,
+        boxShadow: '0 0 0 rgba(0,0,0,0)',
+        ease: "power2.inOut"
+      }, 0);
 
-    gsap.to('.hero__gold-ring', {
-      scrollTrigger: {
-        trigger: '.hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1
-      },
-      scale: 1.5,
-      opacity: 0,
-      ease: 'none'
-    });
+      // Fade out and translate the texts
+      tl.to('.hero-vid__content', {
+        y: -100,
+        opacity: 0,
+        scale: 0.9,
+        ease: "power2.inOut"
+      }, 0);
+
+      // Fade out scroll hint early
+      tl.to('.hero__scroll-hint', {
+        opacity: 0,
+        y: 20,
+        ease: "power1.inOut",
+        duration: 0.3
+      }, 0);
+    }
 
     // 6. Features Cards Reveal
     gsap.from('.feature-card', {

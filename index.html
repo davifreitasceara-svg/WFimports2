@@ -81,81 +81,49 @@
     </nav>
   </div>
 
-  <!-- ===== CINEMATIC HERO SECTION ===== -->
-  <section class="hero" id="hero">
-    <!-- Golden Particles Canvas -->
-    <canvas id="hero-particles-canvas" class="hero__particles-canvas"></canvas>
+  <!-- ===== CINEMATIC VIDEO HERO SECTION ===== -->
+  <section class="hero-video-stage" id="hero-video-section">
+    
+    <!-- Pinned Scroll Container -->
+    <div class="hero-vid__pinned" id="hero-vid-pinned">
+      
+      <!-- Video Element -->
+      <div class="hero-vid__container" id="hero-vid-container">
+        <video src="video_video.mp4" autoplay loop muted playsinline class="hero-vid__media" id="hero-media"></video>
+        <div class="hero-vid__overlay"></div>
+      </div>
 
-    <!-- Cinematic Background -->
-    <div class="hero__cinema-bg">
-      <div class="hero__light-ray hero__light-ray--1"></div>
-      <div class="hero__light-ray hero__light-ray--2"></div>
-      <div class="hero__light-ray hero__light-ray--3"></div>
-      <div class="hero__ambient-glow"></div>
-    </div>
-
-    <!-- Floating Watches Composition -->
-    <div class="hero__watches-stage" id="hero-watches-stage">
-      <div class="hero__watch-wrapper" id="hero-watch-wrapper">
-        <div class="hero__watch-reflection"></div>
-        <div class="hero__watch-composition">
-          <!-- Relógio de trás escurecido para contraste/profundidade -->
-          <img src="ws79_ultra2.png" alt="WF Premium Smartwatch Back" class="hero__comp-img hero__comp-img--back">
-          <!-- Relógio da frente brilhante/destaque -->
-          <img src="ws79_ultra2.png" alt="WF Premium Smartwatch Front" class="hero__comp-img hero__comp-img--front">
+      <!-- Text Content overlaid on video/background -->
+      <div class="hero-vid__content" id="hero-vid-content">
+        <div class="hero__cinema-badge" id="hero-vid-badge">
+          <i data-lucide="sparkles"></i>
+          <span>Nova Coleção 2026</span>
+        </div>
+        <h1 class="hero__cinema-title" id="hero-vid-title">
+          Tecnologia que<br>
+          <span class="hero__cinema-title-gold">você veste.</span>
+        </h1>
+        <p class="hero__cinema-desc" id="hero-vid-desc">
+          Smartwatches premium com design sofisticado e funcionalidades que transformam seu dia a dia.
+        </p>
+        <div class="hero__cinema-actions" id="hero-vid-actions">
+          <button class="btn btn--gold btn--cinema" onclick="document.getElementById('showcase').scrollIntoView({behavior: 'smooth'})">
+            <span>Ver Coleção</span>
+            <i data-lucide="arrow-right"></i>
+          </button>
+          <button class="btn btn--outline btn--cinema" onclick="document.getElementById('store').scrollIntoView({behavior: 'smooth'})">
+            <span>Explorar Loja</span>
+          </button>
         </div>
       </div>
-    </div>
 
-    <!-- Gold Ring Accent -->
-    <div class="hero__gold-ring" id="hero-gold-ring"></div>
-
-    <!-- Text Content -->
-    <div class="hero__cinema-content" id="hero-cinema-content">
-      <div class="hero__cinema-badge" id="hero-cinema-badge">
-        <i data-lucide="sparkles"></i>
-        <span>Nova Coleção 2026</span>
-      </div>
-      <h1 class="hero__cinema-title" id="hero-cinema-title">
-        <span class="hero__cinema-title-line" id="hero-title-line1">Tecnologia que</span>
-        <span class="hero__cinema-title-line hero__cinema-title-gold" id="hero-title-line2">você veste.</span>
-      </h1>
-      <p class="hero__cinema-desc" id="hero-cinema-desc">
-        Smartwatches premium com design sofisticado e funcionalidades que transformam seu dia a dia.
-      </p>
-      <div class="hero__cinema-actions" id="hero-cinema-actions">
-        <a href="#showcase" class="btn btn--gold btn--cinema">
-          <span>Ver Coleção</span>
-          <i data-lucide="arrow-right"></i>
-        </a>
-        <a href="#store" class="btn btn--outline btn--cinema">
-          <span>Explorar Loja</span>
-        </a>
-      </div>
-      <div class="hero__cinema-stats" id="hero-cinema-stats">
-        <div class="hero__stat">
-          <span class="hero__stat-num">12</span>
-          <span class="hero__stat-label">Modelos</span>
+      <!-- Scroll Hint -->
+      <div class="hero__scroll-hint" id="hero-vid-scroll-hint">
+        <div class="scroll-mouse">
+          <div class="scroll-mouse__wheel"></div>
         </div>
-        <div class="hero__stat-divider"></div>
-        <div class="hero__stat">
-          <span class="hero__stat-num">3</span>
-          <span class="hero__stat-label">Pulseiras</span>
-        </div>
-        <div class="hero__stat-divider"></div>
-        <div class="hero__stat">
-          <span class="hero__stat-num">∞</span>
-          <span class="hero__stat-label">Combinações</span>
-        </div>
+        <span>Role para explorar e expandir</span>
       </div>
-    </div>
-
-    <!-- Scroll Hint -->
-    <div class="hero__scroll-hint" id="hero-scroll-hint">
-      <div class="scroll-mouse">
-        <div class="scroll-mouse__wheel"></div>
-      </div>
-      <span>Role para explorar</span>
     </div>
   </section>
 
