@@ -478,19 +478,15 @@ body:hover .cursor-glow { opacity: 1; }
 
 .hero-vid__container {
   position: absolute;
-  width: 40%; /* Tamanho inicial referencial ao parent (100%) em vez de vw */
-  height: 60vh;
-  border-radius: 40px;
+  width: 100%;
+  height: 100vh;
+  border-radius: 0;
   overflow: hidden;
   z-index: 1;
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), 0 0 50px rgba(212, 175, 55, 0.15);
-  transform-origin: center center;
-  will-change: width, height, border-radius;
+  box-shadow: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  -webkit-transform: translateZ(0); /* Hardware Acceleration to fix scaling artifacts */
-  transform: translateZ(0);
 }
 
 .hero-vid__media {
@@ -604,22 +600,9 @@ body:hover .cursor-glow { opacity: 1; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Scroll Hint */
+/* Scroll Hint — hidden since hero starts fullscreen */
 .hero__scroll-hint {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.72rem;
-  letter-spacing: 1px;
-  z-index: 5;
-  opacity: 0;
-  animation: vidFadeUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.5s forwards;
+  display: none;
 }
 
 .scroll-mouse {
@@ -648,9 +631,9 @@ body:hover .cursor-glow { opacity: 1; }
 /* ===== RESPONSIVE VIDEO HERO ===== */
 @media (max-width: 768px) {
   .hero-vid__container {
-    width: 85%;
-    height: 50vh;
-    border-radius: 30px;
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
   }
   
   .hero__cinema-title {
@@ -2379,10 +2362,18 @@ body:hover .cursor-glow { opacity: 1; }
 }
 
 @media (max-width: 480px) {
-  .store__grid { grid-template-columns: 1fr; }
+  .store__grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .hero__stats { flex-wrap: wrap; }
   .showcase__panel-actions { flex-direction: column; }
   .showcase__panel-actions .btn,
   .showcase__panel-detail { width: 100%; justify-content: center; }
+
+  .product-card__image { height: 140px; }
+  .product-card__info { padding: 12px; }
+  .product-card__title { font-size: 0.8rem; }
+  .product-card__desc { font-size: 0.7rem; -webkit-line-clamp: 1; margin-bottom: 8px; }
+  .product-card__price { font-size: 0.9rem; }
+  .product-card__add-btn { width: 30px; height: 30px; }
+  .product-card__add-btn i { width: 14px; height: 14px; }
 }
 

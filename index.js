@@ -416,45 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
     }); // End mobile matchMedia
 
-    // 5. Cinematic Video Hero Scroll Expansion
-    const heroStage = document.getElementById('hero-video-section');
-    if (heroStage) {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: heroStage,
-          start: "top top",
-          end: "+=150%", // Scroll depth for the animation
-          scrub: 1.5,
-          pin: true,
-          anticipatePin: 1
-        }
-      });
-
-      // Expand container to full screen
-      tl.to('.hero-vid__container', {
-        width: '100%', // fixed from 100vw to avoid scrollbar
-        height: '100vh',
-        borderRadius: 0,
-        boxShadow: '0 0 0 rgba(0,0,0,0)',
-        ease: "power2.inOut"
-      }, 0);
-
-      // Fade out and translate the texts
-      tl.to('.hero-vid__content', {
-        y: -100,
-        opacity: 0,
-        scale: 0.9,
-        ease: "power2.inOut"
-      }, 0);
-
-      // Fade out scroll hint early
-      tl.to('.hero__scroll-hint', {
-        opacity: 0,
-        y: 20,
-        ease: "power1.inOut",
-        duration: 0.3
-      }, 0);
-    }
+    // 5. Hero is now fullscreen by default — no scroll expansion needed
 
     // 6. Features Cards Reveal
     gsap.from('.feature-card', {
