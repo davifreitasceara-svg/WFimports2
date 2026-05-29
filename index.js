@@ -283,98 +283,100 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof gsap !== 'undefined' && showcaseTrack) {
     gsap.registerPlugin(ScrollTrigger);
 
-    // 1. HORIZONTAL SCROLL SHOWCASE — pin + drag x
-    const totalScrollWidth = showcaseTrack.scrollWidth - window.innerWidth;
+    // 1. HORIZONTAL SCROLL SHOWCASE (Desktop Only)
+    let mm = gsap.matchMedia();
+    mm.add("(min-width: 769px)", () => {
+      const totalScrollWidth = showcaseTrack.scrollWidth - window.innerWidth;
 
-    const showcaseTween = gsap.to(showcaseTrack, {
-      x: -totalScrollWidth,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: showcaseOuter,
-        start: 'top top',
-        end: () => `+=${totalScrollWidth + window.innerHeight}`,
-        scrub: 1.2,
-        pin: true,
-        anticipatePin: 1,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          const activeIndex = Math.round(progress * (PANEL_COUNT - 1));
+      const showcaseTween = gsap.to(showcaseTrack, {
+        x: -totalScrollWidth,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: showcaseOuter,
+          start: 'top top',
+          end: () => `+=${totalScrollWidth + window.innerHeight}`,
+          scrub: 1.2,
+          pin: true,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            const activeIndex = Math.round(progress * (PANEL_COUNT - 1));
 
-          // Update dots
-          showcaseDots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === activeIndex);
-          });
+            showcaseDots.forEach((dot, i) => {
+              dot.classList.toggle('active', i === activeIndex);
+            });
 
-          // Update progress bar
-          if (showcaseProgress) {
-            showcaseProgress.style.width = `${(progress * 100).toFixed(1)}%`;
-          }
-
-          // Play/pause panel videos based on visibility
-          showcasePanels.forEach((panel, i) => {
-            const vid = panel.querySelector('.showcase__panel-vid');
-            if (!vid) return;
-            if (i === activeIndex) {
-              vid.play().catch(() => {});
-            } else {
-              vid.pause();
-              vid.currentTime = 0;
+            if (showcaseProgress) {
+              showcaseProgress.style.width = `${(progress * 100).toFixed(1)}%`;
             }
-          });
-        }
-      }
-    });
 
-    // 2. IMAGE PARALLAX inside each panel (image moves slower than panel)
-    showcasePanels.forEach((panel) => {
-      const img = panel.querySelector('.showcase__panel-img');
-      if (!img) return;
-      gsap.fromTo(img,
-        { x: 40 },
-        {
-          x: -40,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: panel,
-            containerAnimation: showcaseTween,
-            start: 'left right',
-            end: 'right left',
-            scrub: true
+            showcasePanels.forEach((panel, i) => {
+              const vid = panel.querySelector('.showcase__panel-vid');
+              if (!vid) return;
+              if (i === activeIndex) {
+                vid.play().catch(() => {});
+              } else {
+                vid.pause();
+                vid.currentTime = 0;
+              }
+            });
           }
         }
-      );
-    });
-
-    // 3. Panel info FADE IN from left as each panel enters
-    showcasePanels.forEach((panel) => {
-      const info = panel.querySelector('.showcase__panel-info');
-      if (!info) return;
-      gsap.fromTo(info,
-        { opacity: 0, x: -60 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: panel,
-            containerAnimation: showcaseTween,
-            start: 'left center',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      );
-    });
-
-    // 4. Dot click → scroll to panel
-    showcaseDots.forEach((dot, i) => {
-      dot.addEventListener('click', () => {
-        const targetProgress = i / (PANEL_COUNT - 1);
-        const st = showcaseTween.scrollTrigger;
-        const targetScroll = st.start + (st.end - st.start) * targetProgress;
-        gsap.to(window, { scrollTo: targetScroll, duration: 1.2, ease: 'power3.inOut' });
       });
-    });
+
+      showcasePanels.forEach((panel) => {
+        const img = panel.querySelector('.showcase__panel-img');
+        if (!img) return;
+        gsap.fromTo(img,
+          { x: 40 },
+          {
+            x: -40,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: panel,
+              containerAnimation: showcaseTween,
+              start: 'left right',
+              end: 'right left',
+              scrub: true
+            }
+          }
+        );
+      });
+
+      showcasePanels.forEach((panel) => {
+        const info = panel.querySelector('.showcase__panel-info');
+        if (!info) return;
+        gsap.fromTo(info,
+          { opacity: 0, x: -60 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: panel,
+              containerAnimation: showcaseTween,
+              start: 'left center',
+              toggleActions: 'play none none reverse'
+            }
+          }
+        );
+      });
+
+      showcaseDots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          const targetProgress = i / (PANEL_COUNT - 1);
+          const st = showcaseTween.scrollTrigger;
+          const targetScroll = st.start + (st.end - st.start) * targetProgress;
+          gsap.to(window, { scrollTo: targetScroll, duration: 1.2, ease: 'power3.inOut' });
+        });
+      });
+      
+      return () => {
+         // optional cleanup if we resize back and forth
+         gsap.set(showcaseTrack, {clearProps: "all"});
+      };
+    }); // End matchMedia
 
     // 5. Cinematic Video Hero Scroll Expansion
     const heroStage = document.getElementById('hero-video-section');
