@@ -832,6 +832,11 @@ document.addEventListener('DOMContentLoaded', () => {
       miniVideo.src = product.video;
       miniVideoWrapper.classList.remove('hidden');
       miniVideo.play().catch(() => {});
+      miniVideoWrapper.classList.remove('maximized');
+      miniVideoWrapper.style.left = '';
+      miniVideoWrapper.style.top = '';
+      miniVideoWrapper.style.right = '';
+      miniVideoWrapper.style.bottom = '';
     } else {
       miniVideo.src = '';
       miniVideoWrapper.classList.add('hidden');

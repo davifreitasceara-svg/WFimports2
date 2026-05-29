@@ -2398,6 +2398,18 @@ body:hover .cursor-glow { opacity: 1; }
   background: var(--bg-card);
   transition: all 0.4s var(--ease);
   animation: vidPop 0.4s var(--ease-spring);
+  cursor: grab;
+}
+.pm__mini-video:active {
+  cursor: grabbing;
+}
+.pm__mini-video.no-transition {
+  transition: none !important;
+}
+.pm__mini-video.maximized {
+  width: 250px;
+  height: 400px;
+  border-radius: 12px;
 }
 
 @keyframes vidPop {
@@ -2418,5 +2430,9 @@ body:hover .cursor-glow { opacity: 1; }
     bottom: 20px;
     right: 20px;
     border-width: 3px;
+  }
+  .pm__mini-video.maximized {
+    width: 180px;
+    height: 320px;
   }
 }
