@@ -513,48 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ===== SIMULATOR CONTROLS =====
-  // Face style
-  $$('#face-style-selector .sim-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      $$('#face-style-selector .sim-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
 
-  // Hand style
-  $$('#hand-style-selector .sim-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      $$('#hand-style-selector .sim-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
-
-  // Complications (max 2)
-  $$('#complications-selector .sim-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (btn.classList.contains('active')) {
-        btn.classList.remove('active');
-      } else {
-        const activeCount = $$('#complications-selector .sim-btn.active').length;
-        if (activeCount < 2) btn.classList.add('active');
-        else showToast('Máximo de 2 widgets!', 'alert-circle');
-      }
-    });
-  });
-
-  // Case material
-  $$('#case-material-selector .sim-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      $$('#case-material-selector .sim-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
-
-  // Apply button
-  $('#apply-face-btn')?.addEventListener('click', () => {
-    showToast('Watchface sincronizada com sucesso!', 'check-circle');
-  });
 
   // ===== STORE: RENDER PRODUCTS =====
   const productsContainer = $('#products-container');
@@ -644,15 +603,15 @@ document.addEventListener('DOMContentLoaded', () => {
   cartOverlay?.addEventListener('click', closeCart);
   $('#cart-continue-shopping')?.addEventListener('click', closeCart);
 
-  function addToCart(productId, qty = 1) {
+  function addToCart(productId, qty = 1, variant = null) {
     const product = PRODUCTS.find(p => p.id === productId);
     if (!product) return;
 
-    const existing = cart.find(c => c.id === productId);
+    const existing = cart.find(c => c.id === productId && c.variant === variant);
     if (existing) {
       existing.qty += qty;
     } else {
-      cart.push({ ...product, qty });
+      cart.push({ ...product, qty, variant });
     }
 
     updateCartUI();
@@ -701,7 +660,7 @@ document.addEventListener('DOMContentLoaded', () => {
       el.innerHTML = `
         <div class="cart-item__img">${imgContent}</div>
         <div class="cart-item__details">
-          <div class="cart-item__title">${item.title}</div>
+          <div class="cart-item__title">${item.title} ${item.variant ? `(${item.variant})` : ''}</div>
           <div class="cart-item__price">${formatPrice(item.price * item.qty)}</div>
           <div class="cart-item__controls">
             <button class="cart-item__qty-btn" data-qty-id="${item.id}" data-delta="-1">−</button>
@@ -768,12 +727,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const email = $('#c-email')?.value || '';
     const telefone = $('#c-tel')?.value || '';
     const endereco = $('#c-address')?.value || '';
-
-    // Get simulator configurations
-    const simFace = $('#face-style-selector .sim-btn.active')?.textContent.trim() || 'Padrão';
-    const simHands = $('#hand-style-selector .sim-btn.active')?.textContent.trim() || 'Padrão';
-    const simCase = $('#case-material-selector .sim-btn.active')?.textContent.trim() || 'Padrão';
-    const simWidgets = Array.from($$('#complications-selector .sim-btn.active')).map(b => b.textContent.trim()).join(', ') || 'Nenhum';
+    const delivery = $('#c-delivery')?.value || 'Entrega';
+    const payment = $('#c-payment')?.value || 'Pix';
 
     // Get cart items
     let cartText = '';
@@ -781,7 +736,8 @@ document.addEventListener('DOMContentLoaded', () => {
     cart.forEach(item => {
       const itemTotal = item.price * item.qty;
       totalPrice += itemTotal;
-      cartText += `- ${item.qty}x ${item.title} (${formatPrice(itemTotal)})\n`;
+      const variantText = item.variant ? ` (Cor: ${item.variant})` : '';
+      cartText += `- ${item.qty}x ${item.title}${variantText} - ${formatPrice(itemTotal)}\n`;
     });
 
     // Build message
@@ -792,17 +748,16 @@ document.addEventListener('DOMContentLoaded', () => {
       `Telefone: ${telefone}\n` +
       `E-mail: ${email}\n` +
       `Endereço: ${endereco}\n\n` +
-      `*CONFIGURAÇÕES DO SIMULADOR (WATCHFACE)*\n` +
-      `Mostrador: ${simFace}\n` +
-      `Ponteiros: ${simHands}\n` +
-      `Acabamento: ${simCase}\n` +
-      `Widgets: ${simWidgets}\n\n` +
+      `*MÉTODO DE RECEBIMENTO:*\n` +
+      `${delivery}\n\n` +
+      `*FORMA DE PAGAMENTO:*\n` +
+      `${payment}\n\n` +
       `*ITENS DO CARRINHO*\n${cartText}\n` +
       `*TOTAL DO PEDIDO:* ${formatPrice(totalPrice)}\n\n` +
       `Gostaria de finalizar meu pedido via WhatsApp!`;
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/5585994057055?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/558592364173?text=${encodedMessage}`;
 
     // Clear cart and close modal
     cart = [];
@@ -964,8 +919,9 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#pm-add-cart-btn')?.addEventListener('click', () => {
     const title = $('#pm-title').textContent;
     const product = PRODUCTS.find(p => p.title === title);
+    const variant = $('#pm-selected-variant')?.textContent || '';
     if (product) {
-      addToCart(product.id, modalProductQty);
+      addToCart(product.id, modalProductQty, variant);
       closeProductModal();
     }
   });
