@@ -219,6 +219,128 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ===== FLOATING SITE VIDEO (Close, Maximize, Drag) =====
+  (function initSiteVideoFloat() {
+    const wrapper = $('#site-video-float');
+    const closeBtn = $('#site-video-close');
+    const videoEl = $('#site-video-player');
+    if (!wrapper) return;
+
+    let isDragging = false;
+    let dragStartX = 0, dragStartY = 0;
+    let dragInitialLeft = 0, dragInitialTop = 0;
+    let dragMoved = false;
+    let positionSwitched = false;
+
+    // Close button
+    closeBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      wrapper.classList.add('hidden');
+      if (videoEl) videoEl.pause();
+    });
+
+    // Switch from CSS left/bottom to left/top for drag
+    function switchToAbsolute() {
+      if (!positionSwitched) {
+        const rect = wrapper.getBoundingClientRect();
+        wrapper.style.left = rect.left + 'px';
+        wrapper.style.top = rect.top + 'px';
+        wrapper.style.bottom = 'auto';
+        wrapper.style.right = 'auto';
+        positionSwitched = true;
+      }
+    }
+
+    // Click to toggle maximize
+    wrapper.addEventListener('click', (e) => {
+      if (dragMoved) return;
+      if (e.target.closest('.site-video-float__close')) return;
+      e.stopPropagation();
+      wrapper.classList.remove('no-transition');
+      wrapper.classList.toggle('maximized');
+
+      // Unmute/mute on maximize
+      if (videoEl) {
+        videoEl.muted = !wrapper.classList.contains('maximized');
+      }
+    });
+
+    // --- MOUSE DRAG ---
+    wrapper.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.site-video-float__close')) return;
+      e.preventDefault();
+      isDragging = true;
+      dragMoved = false;
+      switchToAbsolute();
+      wrapper.classList.add('no-transition');
+
+      const rect = wrapper.getBoundingClientRect();
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      dragInitialLeft = rect.left;
+      dragInitialTop = rect.top;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - dragStartX;
+      const dy = e.clientY - dragStartY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+
+      const rect = wrapper.getBoundingClientRect();
+      let newLeft = Math.max(0, Math.min(window.innerWidth - rect.width, dragInitialLeft + dx));
+      let newTop = Math.max(0, Math.min(window.innerHeight - rect.height, dragInitialTop + dy));
+      wrapper.style.left = newLeft + 'px';
+      wrapper.style.top = newTop + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        wrapper.classList.remove('no-transition');
+        setTimeout(() => { dragMoved = false; }, 10);
+      }
+    });
+
+    // --- TOUCH DRAG ---
+    wrapper.addEventListener('touchstart', (e) => {
+      if (e.target.closest('.site-video-float__close')) return;
+      isDragging = true;
+      dragMoved = false;
+      switchToAbsolute();
+      wrapper.classList.add('no-transition');
+
+      const touch = e.touches[0];
+      const rect = wrapper.getBoundingClientRect();
+      dragStartX = touch.clientX;
+      dragStartY = touch.clientY;
+      dragInitialLeft = rect.left;
+      dragInitialTop = rect.top;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const touch = e.touches[0];
+      const dx = touch.clientX - dragStartX;
+      const dy = touch.clientY - dragStartY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+
+      const rect = wrapper.getBoundingClientRect();
+      let newLeft = Math.max(0, Math.min(window.innerWidth - rect.width, dragInitialLeft + dx));
+      let newTop = Math.max(0, Math.min(window.innerHeight - rect.height, dragInitialTop + dy));
+      wrapper.style.left = newLeft + 'px';
+      wrapper.style.top = newTop + 'px';
+    }, { passive: true });
+
+    document.addEventListener('touchend', () => {
+      if (isDragging) {
+        isDragging = false;
+        wrapper.classList.remove('no-transition');
+        setTimeout(() => { dragMoved = false; }, 10);
+      }
+    });
+  })();
+
   // ===== NAVBAR =====
   const navbar = $('#navbar');
   let lastScroll = 0;
