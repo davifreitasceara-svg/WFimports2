@@ -256,34 +256,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Elementos do hero video apenas têm animação via css (vidFadeUp) no load.
   // Vamos configurar o ScrollTrigger para expandir o video!
 
-  // Hero Watches Animation
-  if (typeof gsap !== 'undefined') {
-    // 1st Watch appears slightly after texts
-    gsap.to('.hero__3d-watch-1', {
-      opacity: 1,
-      y: 0,
-      rotation: 0,
-      duration: 1.5,
-      ease: 'power4.out',
-      delay: 1.2
-    });
-
-    // 2nd Watch Parallax on Scroll Interaction
-    gsap.to('.hero__3d-watch-2', {
-      scrollTrigger: {
-        trigger: '.hero-video-stage',
-        start: 'top top',
-        end: 'bottom center',
-        scrub: 1.5
-      },
-      opacity: 1,
-      y: -100,
-      x: 30,
-      rotation: 0,
-      ease: 'none'
-    });
-  }
-
   // ===== BENTO GRID VIDEO AUTOPLAY ON HOVER =====
   $$('.bento__card[data-watch]').forEach(card => {
     const video = card.querySelector('.bento__card-video');
