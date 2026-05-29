@@ -376,7 +376,45 @@ document.addEventListener('DOMContentLoaded', () => {
          // optional cleanup if we resize back and forth
          gsap.set(showcaseTrack, {clearProps: "all"});
       };
-    }); // End matchMedia
+    }); // End desktop matchMedia
+
+    // 2. HORIZONTAL SCROLL SHOWCASE (Mobile Swipe Snap Sync)
+    mm.add("(max-width: 768px)", () => {
+      const updateDots = () => {
+        const scrollLeft = showcaseTrack.scrollLeft;
+        // Panel width + 16px gap
+        const panelWidth = showcasePanels[0].offsetWidth + 16;
+        if(panelWidth <= 0) return;
+        const activeIndex = Math.round(scrollLeft / panelWidth);
+        
+        showcaseDots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === activeIndex);
+        });
+      };
+
+      showcaseTrack.addEventListener('scroll', updateDots, { passive: true });
+
+      const clickHandlers = [];
+      showcaseDots.forEach((dot, i) => {
+        const handler = () => {
+          const panelWidth = showcasePanels[0].offsetWidth + 16;
+          showcaseTrack.scrollTo({
+            left: i * panelWidth,
+            behavior: 'smooth'
+          });
+        };
+        dot.addEventListener('click', handler);
+        clickHandlers.push({ dot, handler });
+      });
+
+      // Initial visual sync
+      updateDots();
+
+      return () => {
+        showcaseTrack.removeEventListener('scroll', updateDots);
+        clickHandlers.forEach(item => item.dot.removeEventListener('click', item.handler));
+      };
+    }); // End mobile matchMedia
 
     // 5. Cinematic Video Hero Scroll Expansion
     const heroStage = document.getElementById('hero-video-section');

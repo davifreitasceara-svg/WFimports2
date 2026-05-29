@@ -2285,23 +2285,38 @@ body:hover .cursor-glow { opacity: 1; }
   
   .pm__trust { grid-template-columns: repeat(2, 1fr); }
 
-  /* Showcase mobile: vertical stack */
+  /* Showcase mobile: Swipeable Horizontal Carousel */
   .showcase__outer {
-    overflow: visible;
+    overflow: hidden;
   }
 
   .showcase__track {
     display: flex;
-    flex-direction: column;
-    width: 100% !important;
+    flex-direction: row;
+    width: auto !important;
     transform: none !important; /* Prevent GSAP leftover transforms */
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 16px 40px; /* give some bottom space */
+    gap: 16px;
+  }
+
+  .showcase__track::-webkit-scrollbar {
+    display: none;
   }
 
   .showcase__panel {
     height: auto;
     min-height: auto;
-    width: 100%;
-    flex-shrink: 1;
+    width: 85vw; /* Most of the screen, so the user sees the next card peeking */
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+    background: var(--bg-card); /* Add standard card background */
   }
 
   .showcase__panel + .showcase__panel::before {
@@ -2310,30 +2325,43 @@ body:hover .cursor-glow { opacity: 1; }
 
   .showcase__panel-content {
     grid-template-columns: 1fr;
-    padding: 60px 24px 40px;
-    gap: 32px;
+    padding: 40px 24px;
+    gap: 24px;
   }
 
   .showcase__panel-visual {
-    height: 260px;
+    height: 240px;
     order: -1;
   }
 
   .showcase__panel-img {
-    max-height: 260px;
+    max-height: 240px;
     animation: none;
   }
 
   .showcase__panel-vid {
-    display: none;
+    display: block; /* Turn video back on for mobile if it loads */
+    opacity: 1; /* Always show static or auto playing video */
+    animation: none;
   }
 
   .showcase__panel-watermark {
-    font-size: clamp(60px, 20vw, 100px);
+    font-size: clamp(50px, 15vw, 80px);
+    top: auto;
+    bottom: -10px;
+    right: -10px;
   }
 
   .showcase__panel-name {
-    font-size: clamp(2rem, 8vw, 3rem);
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+  }
+
+  .showcase__panel-price {
+    font-size: 1.5rem;
+  }
+  
+  .showcase__panel-price span {
+    font-size: 2.2rem;
   }
 
   .showcase__scroll-hint {
@@ -2341,7 +2369,12 @@ body:hover .cursor-glow { opacity: 1; }
   }
 
   .showcase__nav {
-    display: none;
+    display: flex; /* Turn the dots back on for mobile */
+    padding: 0 0 20px;
+  }
+  
+  .showcase__progress-bar {
+    display: none; /* Hide progress bar on mobile, keep dots */
   }
 }
 
