@@ -833,10 +833,13 @@ document.addEventListener('DOMContentLoaded', () => {
       miniVideoWrapper.classList.remove('hidden');
       miniVideo.play().catch(() => {});
       miniVideoWrapper.classList.remove('maximized');
+      miniVideoWrapper.classList.remove('no-transition');
       miniVideoWrapper.style.left = '';
       miniVideoWrapper.style.top = '';
       miniVideoWrapper.style.right = '';
       miniVideoWrapper.style.bottom = '';
+      // Reset drag state
+      miniVideoWrapper._isDragged = false;
     } else {
       miniVideo.src = '';
       miniVideoWrapper.classList.add('hidden');
@@ -928,6 +931,138 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast('Adicionado aos favoritos!', 'heart');
     }
   });
+
+  // ===== MINI-VIDEO: CLICK TO MAXIMIZE + DRAG =====
+  (function initMiniVideoDragAndMaximize() {
+    const wrapper = $('#pm-mini-video-wrapper');
+    if (!wrapper) return;
+
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let dragInitialLeft = 0;
+    let dragInitialTop = 0;
+    let dragMoved = false;
+
+    // Get current position of the wrapper
+    function getPosition() {
+      const rect = wrapper.getBoundingClientRect();
+      return { left: rect.left, top: rect.top };
+    }
+
+    // Switch from right/bottom to left/top positioning for dragging
+    function switchToAbsolutePosition() {
+      if (!wrapper._isDragged) {
+        const rect = wrapper.getBoundingClientRect();
+        wrapper.style.left = rect.left + 'px';
+        wrapper.style.top = rect.top + 'px';
+        wrapper.style.right = 'auto';
+        wrapper.style.bottom = 'auto';
+        wrapper._isDragged = true;
+      }
+    }
+
+    // Click to toggle maximize (only if not a drag)
+    wrapper.addEventListener('click', (e) => {
+      if (dragMoved) return; // ignore click after drag
+      e.stopPropagation();
+      wrapper.classList.remove('no-transition');
+      wrapper.classList.toggle('maximized');
+    });
+
+    // --- MOUSE DRAG ---
+    wrapper.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      isDragging = true;
+      dragMoved = false;
+      switchToAbsolutePosition();
+      wrapper.classList.add('no-transition');
+
+      const pos = getPosition();
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      dragInitialLeft = pos.left;
+      dragInitialTop = pos.top;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - dragStartX;
+      const dy = e.clientY - dragStartY;
+
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+        dragMoved = true;
+      }
+
+      let newLeft = dragInitialLeft + dx;
+      let newTop = dragInitialTop + dy;
+
+      // Clamp to viewport
+      const rect = wrapper.getBoundingClientRect();
+      const w = rect.width;
+      const h = rect.height;
+      newLeft = Math.max(0, Math.min(window.innerWidth - w, newLeft));
+      newTop = Math.max(0, Math.min(window.innerHeight - h, newTop));
+
+      wrapper.style.left = newLeft + 'px';
+      wrapper.style.top = newTop + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        wrapper.classList.remove('no-transition');
+        // Reset dragMoved after a tick so click handler can check it
+        setTimeout(() => { dragMoved = false; }, 10);
+      }
+    });
+
+    // --- TOUCH DRAG ---
+    wrapper.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      dragMoved = false;
+      switchToAbsolutePosition();
+      wrapper.classList.add('no-transition');
+
+      const touch = e.touches[0];
+      const pos = getPosition();
+      dragStartX = touch.clientX;
+      dragStartY = touch.clientY;
+      dragInitialLeft = pos.left;
+      dragInitialTop = pos.top;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const touch = e.touches[0];
+      const dx = touch.clientX - dragStartX;
+      const dy = touch.clientY - dragStartY;
+
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+        dragMoved = true;
+      }
+
+      let newLeft = dragInitialLeft + dx;
+      let newTop = dragInitialTop + dy;
+
+      const rect = wrapper.getBoundingClientRect();
+      const w = rect.width;
+      const h = rect.height;
+      newLeft = Math.max(0, Math.min(window.innerWidth - w, newLeft));
+      newTop = Math.max(0, Math.min(window.innerHeight - h, newTop));
+
+      wrapper.style.left = newLeft + 'px';
+      wrapper.style.top = newTop + 'px';
+    }, { passive: true });
+
+    document.addEventListener('touchend', () => {
+      if (isDragging) {
+        isDragging = false;
+        wrapper.classList.remove('no-transition');
+        setTimeout(() => { dragMoved = false; }, 10);
+      }
+    });
+  })();
 
   // ===== SMOOTH SCROLL NAV LINKS =====
   $$('a[href^="#"]').forEach(anchor => {
